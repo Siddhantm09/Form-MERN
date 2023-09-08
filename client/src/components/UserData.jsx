@@ -1,12 +1,27 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserData = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const showAllUsers = async () => {
+      const allUsers = await axios.get("http://localhost:3001");
+      setUsers(allUsers.data);
+      console.log(allUsers.data);
+    };
+    showAllUsers();
+  }, []);
+
   const handleDelete = (e) => {
     e.preventDefault();
   };
+
   const navigate = useNavigate();
   return (
     <div>
+      <button onClick={() => navigate("/create")}>Add</button>
       <table>
         <thead>
           <tr>
@@ -16,17 +31,21 @@ const UserData = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
+          {users.map((user, id) => {
+            return (
+              <tr key={id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.age}</td>
+                <button onClick={() => navigate(`/update/${user._id}`)}>
+                  Update
+                </button>
+                <button onClick={handleDelete}>Delete</button>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-
-      <button onClick={() => navigate("/create")}>Add</button>
-      <button onClick={() => navigate("/update")}>Update</button>
-      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };

@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<UserData />} />
         <Route path="/create" element={<CreateUserData />} />
-        <Route path="/update" element={<UpdateUserData />} />
+        <Route path="/update/:id" element={<UpdateUserData />} />
       </Routes>
     </div>
   );
