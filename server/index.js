@@ -8,6 +8,7 @@ const { createUsercontroller, showAllUserController, updateUsercontroller, getUs
 dotenv.config('./.env')
 const app = express();
 
+
 //middlewares
 app.use(express.json()); //Parse json data so that we can use it in req obj
 app.use(morgan('common'))//Shows info of API you hit

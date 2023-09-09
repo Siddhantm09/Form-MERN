@@ -19,6 +19,7 @@ const UserData = () => {
   };
 
   const navigate = useNavigate();
+
   return (
     <div>
       <button onClick={() => navigate("/create")}>Add</button>

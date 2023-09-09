@@ -12,8 +12,7 @@ const UpdateUserData = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const showAllUsers = async () => {
-      const user = await axios.get("http://localhost:3001/getUser/" + id);
-
+      const user = await axios.get("http://localhost:3001/getUser/" + id); //to display as placeholders
       setName(user.data.name);
       setEmail(user.data.email);
       setAge(user.data.age);

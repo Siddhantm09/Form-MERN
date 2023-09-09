@@ -18,7 +18,6 @@ const createUsercontroller = async (req, res) => {
 }
 const getUserController = async (req, res) => {
     const id = req.params.id
-
     const user = await UserModel.findById({ _id: id })
     res.send(user);
 }
