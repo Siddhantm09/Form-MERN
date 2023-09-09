@@ -43,7 +43,14 @@ const CreateUserData = () => {
             setAge(e.target.value);
           }}
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button
+          onClick={() => {
+            handleSubmit;
+            navigate("/");
+          }}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
