@@ -26,14 +26,16 @@ const getUserController = async (req, res) => {
 const updateUsercontroller = async (req, res) => {
     const id = req.params.id
 
-    const user = await UserModel.findByIdAndUpdate({ _id: id }, { name: req.body.name, email: req.body.email, age: req.body.age })
+    await UserModel.findByIdAndUpdate({ _id: id }, { name: req.body.name, email: req.body.email, age: req.body.age })
     // user.name = req.body.name
     // user.email = req.body.email
     // user.age = req.body.age
     // await user.save()
 
 }
-const deleteFormData = () => {
+const deleteFormData = async (req, res) => {
+    console.log(req.params.id);
+    await UserModel.findByIdAndDelete({ _id: req.params.id })
 
 }
 

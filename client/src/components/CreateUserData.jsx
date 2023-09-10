@@ -18,8 +18,7 @@ const CreateUserData = () => {
       }
     };
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     await axios.post(
       "http://localhost:3001/createUser",
       {
@@ -28,7 +27,9 @@ const CreateUserData = () => {
         age,
         image,
       },
-      navigate("/")
+
+      navigate("/"),
+      window.location.reload(true)
     );
   };
   return (
@@ -56,7 +57,7 @@ const CreateUserData = () => {
             setAge(e.target.value);
           }}
         />
-        <img src={image} />
+        <img src={image} style={{ width: "50px" }} />
         <input
           type="file"
           // value={image}

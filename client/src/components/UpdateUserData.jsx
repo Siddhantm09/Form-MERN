@@ -35,6 +35,7 @@ const UpdateUserData = () => {
         email,
         age,
       },
+      window.location.reload(true),
       navigate("/")
     );
   };

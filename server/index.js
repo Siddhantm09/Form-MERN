@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const dbConnect = require('./dbConnect');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { createUsercontroller, showAllUserController, updateUsercontroller, getUserController } = require('./controllers/userController');
+const { createUsercontroller, showAllUserController, updateUsercontroller, getUserController, deleteFormData } = require('./controllers/userController');
 
 dotenv.config('./.env')
 const app = express();
@@ -25,6 +25,7 @@ app.get('/', showAllUserController)
 app.post("/createUser", createUsercontroller)
 app.get('/getUser/:id', getUserController)
 app.put('/updateUser/:id', updateUsercontroller)
+app.delete('/deleteUser/:id', deleteFormData)
 
 
 

@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const UserData = () => {
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
+  //Fetch all users
   useEffect(() => {
     const showAllUsers = async () => {
       const allUsers = await axios.get("http://localhost:3001");
@@ -14,11 +15,12 @@ const UserData = () => {
     showAllUsers();
   }, []);
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  //delete a user
+  const handleDelete = async (id) => {
+    console.log(id);
+    window.location.reload(true);
+    await axios.delete("http://localhost:3001/deleteUser/" + id);
   };
-
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -46,7 +48,7 @@ const UserData = () => {
                   <button onClick={() => navigate(`/update/${user._id}`)}>
                     Update
                   </button>
-                  <button onClick={handleDelete}>Delete</button>
+                  <button onClick={() => handleDelete(user._id)}>Delete</button>
                 </td>
               </tr>
             );
