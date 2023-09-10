@@ -8,7 +8,7 @@ const UserData = () => {
   useEffect(() => {
     const showAllUsers = async () => {
       const allUsers = await axios.get("http://localhost:3001");
-      setUsers(allUsers.data);
+      setUsers(allUsers?.data);
       console.log(allUsers.data);
     };
     showAllUsers();
@@ -29,6 +29,7 @@ const UserData = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Age</th>
+            <th>Image</th>
           </tr>
         </thead>
         <tbody>
@@ -38,10 +39,15 @@ const UserData = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.age}</td>
-                <button onClick={() => navigate(`/update/${user._id}`)}>
-                  Update
-                </button>
-                <button onClick={handleDelete}>Delete</button>
+                <td>
+                  <img src={user.image} style={{ width: "50px" }} />
+                </td>
+                <td>
+                  <button onClick={() => navigate(`/update/${user._id}`)}>
+                    Update
+                  </button>
+                  <button onClick={handleDelete}>Delete</button>
+                </td>
               </tr>
             );
           })}

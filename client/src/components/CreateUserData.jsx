@@ -5,18 +5,31 @@ const CreateUserData = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [age, setAge] = useState();
+  const [image, setImage] = useState();
 
   const navigate = useNavigate();
-
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      if (fileReader.readyState === FileReader.DONE) {
+        setImage(fileReader.result);
+      }
+    };
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await axios.post("http://localhost:3001/createUser", {
-      name,
-      email,
-      age,
-    });
-    navigate("/");
-    console.log(user);
+    await axios.post(
+      "http://localhost:3001/createUser",
+      {
+        name,
+        email,
+        age,
+        image,
+      },
+      navigate("/")
+    );
   };
   return (
     <div>
@@ -43,10 +56,16 @@ const CreateUserData = () => {
             setAge(e.target.value);
           }}
         />
+        <img src={image} />
+        <input
+          type="file"
+          // value={image}
+          accept="image/*"
+          onChange={handleImageChange}
+        />
         <button
           onClick={() => {
-            handleSubmit;
-            navigate("/");
+            handleSubmit();
           }}
         >
           Submit

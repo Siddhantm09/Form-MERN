@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const dbConnect = require('./dbConnect');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const { createUsercontroller, showAllUserController, updateUsercontroller, getUserController } = require('./controllers/userController');
 
 dotenv.config('./.env')
@@ -10,9 +11,14 @@ const app = express();
 
 
 //middlewares
-app.use(express.json()); //Parse json data so that we can use it in req obj
-app.use(morgan('common'))//Shows info of API you hit
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+app.use(express.json());
+
+//Parse json data so that we can use it in req obj
 app.use(cors())
+app.use(morgan('common'))//Shows info of API you hit
+
 
 
 app.get('/', showAllUserController)

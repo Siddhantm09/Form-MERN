@@ -11,24 +11,32 @@ const UpdateUserData = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    const showAllUsers = async () => {
-      const user = await axios.get("http://localhost:3001/getUser/" + id); //to display as placeholders
-      setName(user.data.name);
-      setEmail(user.data.email);
-      setAge(user.data.age);
-    };
-    showAllUsers();
+    axios.get("http://localhost:3001/getUser/" + id).then((result) => {
+      console.log(result);
+      setName(result.data.name);
+      setEmail(result.data.email);
+      setAge(result.data.age);
+    }, []);
+    // const showAllUsers = async () => {
+    //   const user = await axios.get("http://localhost:3001/getUser/" + id); //to display as placeholders
+    //   setName(user.data.name);
+    //   setEmail(user.data.email);
+    //   setAge(user.data.age);
+    // };
+    // showAllUsers();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await axios.put("http://localhost:3001/updateUser/" + id, {
-      name,
-      email,
-      age,
-    });
-    console.log(user);
-    navigate("/");
+    await axios.put(
+      "http://localhost:3001/updateUser/" + id,
+      {
+        name,
+        email,
+        age,
+      },
+      navigate("/")
+    );
   };
   return (
     <div>
@@ -58,7 +66,13 @@ const UpdateUserData = () => {
           }}
           value={age}
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
